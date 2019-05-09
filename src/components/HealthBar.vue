@@ -1,18 +1,14 @@
 <template>
-    <div>
-    </div>
+  <progress value="100" max="100"></progress>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
 <style>
-    div {
-        width: 500px;
-        height: 30px;
-        background-color: red;
-    }
+progress {
+  width: 90%;
+  height: 30px;
+}
 </style>

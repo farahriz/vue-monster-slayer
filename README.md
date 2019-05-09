@@ -1,6 +1,6 @@
 # monster-slayer
 
-> A simple Vue.js for a 1-on-1 RPG fight with a monster
+> A simple Vue.js app for a 1-on-1 RPG fight with a monster
 
 ## Build Setup
 

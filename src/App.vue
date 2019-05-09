@@ -7,14 +7,12 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
 import HealthBar from './components/HealthBar'
 import Button from './components/Button'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
     HealthBar,
     Button
   }

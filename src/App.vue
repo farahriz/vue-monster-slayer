@@ -3,12 +3,12 @@
     <div id="player" class="player-space">
       <img src="./assets/logo.png">
       <h2>Player</h2>
-      <HealthBar/>
+      <HealthBar :health="playerHealth"></HealthBar>
     </div>
     <div id="monster" class="player-space">
       <img src="./assets/logo.png">
       <h2>Monster</h2>
-      <HealthBar/>
+      <HealthBar :health="monsterHealth"></HealthBar>
     </div>
     <div id="controls">
       <Button/>
@@ -31,6 +31,12 @@ export default {
     HealthBar,
     Button,
     ActionLog
+  },
+  data() {
+    return {
+      monsterHealth: 100,
+      playerHealth: 100
+    }
   }
 };
 </script>

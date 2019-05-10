@@ -10,8 +10,10 @@ export default {};
 
 <style>
 button {
-  width: 200px;
+  width: 25%;
   height: 50px;
   font-family: "Avenir", Helvetica, Arial, sans-serif;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 </style>

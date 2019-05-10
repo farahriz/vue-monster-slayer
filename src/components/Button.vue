@@ -1,11 +1,17 @@
 <template>
-  <button>
+  <button v-on:click.stop.prevent="hit('default')">
     <slot>Attack</slot>
   </button>
 </template>
 
 <script>
-export default {};
+export default {
+    methods: {
+        hit: function(message) {
+            console.log(message)
+        }
+    }
+};
 </script>
 
 <style>

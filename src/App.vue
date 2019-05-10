@@ -11,7 +11,7 @@
       <HealthBar :health="monsterHealth"></HealthBar>
     </div>
     <div id="controls">
-      <Button/>
+      <Button></Button>
       <Button>Special Attack</Button>
       <Button>Heal</Button>
       <Button>Give Up</Button>

@@ -15,6 +15,12 @@
       <Button>Special Attack</Button>
       <Button>Heal</Button>
       <Button>Give Up</Button>
+
+      <b-button size="lg" variant="primary">ATK</b-button>
+      <b-button size="lg" variant="info">Sp. ATK</b-button>
+      <b-button size="lg" variant="success">HEAL</b-button>
+      <b-button size="lg" variant="warning">RUN</b-button>
+
     </div>
     <ActionLog/>
   </div>

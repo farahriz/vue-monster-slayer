@@ -21,6 +21,15 @@
       <b-button size="lg" variant="warning">RUN</b-button>
     </div>
 
+    <div id="start-prompt">
+      <span>Hello, {{playerName}}</span>
+      <span>Are you ready to begin?</span>
+      <b-button size="lg" variant="danger">LET'S GO</b-button>
+    </div>
+
+    <div id="action-log" class="container">
+
+    </div>
 
   </div>
 </template>
@@ -40,13 +49,17 @@ export default {
   data() {
     return {
       monsterHealth: 100,
-      playerHealth: 100
+      playerHealth: 100,
+      gameRunning: false,
+      playerDeath: false,
+      playerHealth: false,
+      playerName: "Tomas"
     }
   }
 };
 </script>
 
-<style>
+<style scoped>
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

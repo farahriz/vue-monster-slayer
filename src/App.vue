@@ -4,20 +4,22 @@
       <div class="row">
         <div class="col-lg-5">
           <h3>Player</h3>
+          <p>{{playerHealth}}</p>
         </div>
         <div class="col-lg-1">
           <h5>VS</h5>
         </div>
         <div class="col-lg-5">
           <h3>Monster</h3>
+          <p>{{monsterHealth}}</p>
         </div>
       </div>
     </div>
 
     <div id="controls" class="container">
-      <b-button size="lg" variant="primary">ATK</b-button>
-      <b-button size="lg" variant="info">Sp. ATK</b-button>
-      <b-button size="lg" variant="success">HEAL</b-button>
+      <b-button size="lg" variant="primary" v-on:click.stop.prevent="attack" >ATK</b-button>
+      <b-button size="lg" variant="info" @click="specialAttack">Sp. ATK</b-button>
+      <b-button size="lg" variant="success" @click="heal" >HEAL</b-button>
       <b-button size="lg" variant="warning">RUN</b-button>
     </div>
 
@@ -52,8 +54,24 @@ export default {
       playerHealth: 100,
       gameRunning: false,
       playerDeath: false,
-      playerHealth: false,
       playerName: "Tomas"
+    }
+  },
+  methods: {
+    attack: function() {
+      this.playerHealth -= this.calcDamage(7, 20)
+      this.monsterHealth -= this.calcDamage(3, 10)
+    },
+    specialAttack: function() {
+      this.playerHealth -= this.calcDamage(7, 20)
+      this.monsterHealth -= this.calcDamage(15, 35)
+    },
+    heal: function() {
+      this.playerHealth -= this.calcDamage(7, 15)
+      this.playerHealth += this.calcDamage(10, 30)
+    },
+    calcDamage: function(min, max) {
+      return Math.max(Math.floor(Math.random()*max), min)
     }
   }
 };

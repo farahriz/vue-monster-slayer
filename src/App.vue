@@ -1,28 +1,27 @@
 <template>
   <div id="app">
-    <div id="player" class="player-space">
-      <img src="./assets/logo.png">
-      <h2>Player</h2>
-      <HealthBar :health="playerHealth"></HealthBar>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-5">
+          <h3>Player</h3>
+        </div>
+        <div class="col-lg-1">
+          <h5>VS</h5>
+        </div>
+        <div class="col-lg-5">
+          <h3>Monster</h3>
+        </div>
+      </div>
     </div>
-    <div id="monster" class="player-space">
-      <img src="./assets/logo.png">
-      <h2>Monster</h2>
-      <HealthBar :health="monsterHealth"></HealthBar>
-    </div>
-    <div id="controls">
-      <Button></Button>
-      <Button>Special Attack</Button>
-      <Button>Heal</Button>
-      <Button>Give Up</Button>
 
+    <div id="controls" class="container">
       <b-button size="lg" variant="primary">ATK</b-button>
       <b-button size="lg" variant="info">Sp. ATK</b-button>
       <b-button size="lg" variant="success">HEAL</b-button>
       <b-button size="lg" variant="warning">RUN</b-button>
-
     </div>
-    <ActionLog/>
+
+
   </div>
 </template>
 
@@ -62,7 +61,7 @@ export default {
 #controls {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   height: 100%;
   margin: 0 auto;
 }

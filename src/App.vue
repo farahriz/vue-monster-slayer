@@ -16,24 +16,27 @@
       </div>
       <div class="row">
         <div id="controls" class="col-lg-12" v-if="gameRunning">
-          <b-button size="lg" variant="primary" v-on:click.stop.prevent="attack">ATK</b-button>
-          <b-button size="lg" variant="info" @click="specialAttack">Sp. ATK</b-button>
-          <b-button size="lg" variant="success" @click="heal">HEAL</b-button>
-          <b-button size="lg" variant="warning">RUN</b-button>
+          <div v-bind:class="{ 'd-none': turn }">
+            <span>Hello, {{playerName}}.</span>
+            <span>Are you ready to begin?</span>
+            <b-button variant="danger" @click="turn++">LET'S GO</b-button>
+          </div>
+
+          <div v-bind:class="{ 'd-none': !turn }">
+            <b-button size="lg" variant="primary" v-on:click.stop.prevent="attack">ATK</b-button>
+            <b-button size="lg" variant="info" @click="specialAttack">Sp. ATK</b-button>
+            <b-button size="lg" variant="success" @click="heal">HEAL</b-button>
+            <b-button size="lg" variant="warning">RUN</b-button>
+          </div>
         </div>
 
         <div id="start-prompt" class="col-lg-12" v-else>
-          <template v-if="!playerName">
+          <template>
             <p>What is your name, brave adventurer?</p>
-            <form class="form-inline justify-content-center">
+            <form class="form-inline justify-content-center" @submit.prevent="onSubmit">
               <b-form-input v-model="playerName" placeholder="Enter your name"></b-form-input>
-              <b-button>ENTER</b-button>
+              <button type="submit" class="btn btn-secondary">ENTER</button>
             </form>
-          </template>
-          <template v-else>
-            <span>Hello, {{playerName}}</span>
-            <span>Are you ready to begin?</span>
-            <b-button size="lg" variant="danger">LET'S GO</b-button>
           </template>
         </div>
       </div>
@@ -64,7 +67,8 @@ export default {
       playerHealth: 100,
       gameRunning: false,
       playerDeath: false,
-      playerName: ""
+      playerName: "",
+      turn: 0
     };
   },
   methods: {
@@ -82,6 +86,9 @@ export default {
     },
     calcDamage: function(min, max) {
       return Math.max(Math.floor(Math.random() * max), min);
+    },
+    onSubmit: function() {
+      this.gameRunning = true;
     }
   }
 };

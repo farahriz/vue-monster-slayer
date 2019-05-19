@@ -3,7 +3,8 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-5">
-          <h3>Player</h3>
+          <h3 v-if="!gameRunning">Player</h3>
+          <h3 v-else>{{playerName}}</h3>
           <p>{{playerHealth}}</p>
         </div>
         <div class="col-lg-1">
@@ -43,6 +44,14 @@
       <div class="row">
         <div id="action-log" class="col-lg-12 bg-dark text-light">
           <p>All the damage logs go here</p>
+        </div>
+      </div>
+      <div class="row">
+        <div id="credits" class="col-lg-12">
+          Adventurer sprite assets courtesty of
+          <strong>
+            <a href="https://rvros.itch.io/animated-pixel-hero">rvros</a>
+          </strong>
         </div>
       </div>
     </div>
@@ -116,5 +125,13 @@ export default {
 
 .player-space {
   width: 50%;
+}
+
+#action-log {
+  height: 30em;
+}
+
+div {
+  padding: 5px;
 }
 </style>

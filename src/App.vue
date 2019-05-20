@@ -103,6 +103,8 @@ export default {
     },
     onSubmit: function() {
       this.gameRunning = true;
+      this.playerHealth = 100;
+      this.monsterHealth = 100;
     },
     checkWin: function() {
       if (this.monsterHealth <= 0 && this.playerHealth <= 0) {

@@ -29,7 +29,7 @@
             <b-button size="lg" variant="primary" v-on:click.stop.prevent="attack">ATK</b-button>
             <b-button size="lg" variant="info" @click="specialAttack">Sp. ATK</b-button>
             <b-button size="lg" variant="success" @click="heal">HEAL</b-button>
-            <b-button size="lg" variant="warning">RUN</b-button>
+            <b-button size="lg" variant="warning" @click="runAway">RUN</b-button>
           </div>
         </div>
 
@@ -96,6 +96,11 @@ export default {
     heal: function() {
       this.playerHealth -= this.calcDamage(7, 15);
       this.playerHealth += this.calcDamage(10, 30);
+      this.checkWin();
+    },
+    runAway: function() {
+      alert("You ran away like a coward. The monster ate you anyway.");
+      this.playerHealth = 0;
       this.checkWin();
     },
     calcDamage: function(min, max) {

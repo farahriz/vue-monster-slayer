@@ -5,6 +5,9 @@
         <div class="col-lg-5">
           <h3 v-if="!gameRunning">Player</h3>
           <h3 v-else>{{playerName}}</h3>
+          <div width="100%">
+            <img class="player-sprite" src="./assets/adventurer/adventurer-idle-00.png">
+          </div>
           <p>{{playerHealth}}</p>
         </div>
         <div class="col-lg-1">
@@ -98,6 +101,19 @@ export default {
     },
     onSubmit: function() {
       this.gameRunning = true;
+    },
+    checkWin: function() {
+      if (this.monsterHealth <= 0 && this.playerHealth <= 0) {
+        alert("Double death!");
+        gameRunning = false;
+        return false;
+      } else if (this.monsterHealth <= 0) {
+        gameRunning = false;
+        return true;
+      } else if (this.playerHealth <= 0) {
+        gameRunning = false;
+        return false;
+      } else return false;
     }
   }
 };
@@ -133,5 +149,10 @@ export default {
 
 div {
   padding: 5px;
+}
+
+img.player-sprite {
+  min-width: 20%;
+  min-height: 20%;
 }
 </style>

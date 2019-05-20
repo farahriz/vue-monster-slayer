@@ -5,17 +5,16 @@
         <div class="col-lg-5">
           <h3 v-if="!gameRunning">Player</h3>
           <h3 v-else>{{playerName}}</h3>
-          <div width="100%">
-            <img class="player-sprite" src="./assets/adventurer/adventurer-idle-00.png">
-          </div>
-          <p>{{playerHealth}}</p>
+          <img class="player-sprite" src="./assets/adventurer/adventurer-idle-00.png">
+          <p class="health-bar">{{playerHealth}}</p>
         </div>
         <div class="col-lg-1">
           <h5>VS</h5>
         </div>
         <div class="col-lg-5">
           <h3>Monster</h3>
-          <p>{{monsterHealth}}</p>
+          <img class="player-sprite" src="./assets/logo.png">
+          <p class="health-bar">{{monsterHealth}}</p>
         </div>
       </div>
       <div class="row">
@@ -87,14 +86,17 @@ export default {
     attack: function() {
       this.playerHealth -= this.calcDamage(7, 20);
       this.monsterHealth -= this.calcDamage(3, 10);
+      this.checkWin();
     },
     specialAttack: function() {
       this.playerHealth -= this.calcDamage(7, 20);
       this.monsterHealth -= this.calcDamage(15, 35);
+      this.checkWin();
     },
     heal: function() {
       this.playerHealth -= this.calcDamage(7, 15);
       this.playerHealth += this.calcDamage(10, 30);
+      this.checkWin();
     },
     calcDamage: function(min, max) {
       return Math.max(Math.floor(Math.random() * max), min);
@@ -105,13 +107,19 @@ export default {
     checkWin: function() {
       if (this.monsterHealth <= 0 && this.playerHealth <= 0) {
         alert("Double death!");
-        gameRunning = false;
+        this.monsterHealth = 0;
+        this.playerHealth = 0;
+        this.gameRunning = false;
         return false;
       } else if (this.monsterHealth <= 0) {
-        gameRunning = false;
+        this.gameRunning = false;
+        this.monsterHealth = 0;
+        alert("You are victorious!");
         return true;
       } else if (this.playerHealth <= 0) {
-        gameRunning = false;
+        alert("GAME OVER! You died");
+        this.gameRunning = false;
+        this.playerHealth = 0;
         return false;
       } else return false;
     }
@@ -149,6 +157,10 @@ export default {
 
 div {
   padding: 5px;
+}
+
+.health-bar {
+  vertical-align: text-bottom;
 }
 
 img.player-sprite {

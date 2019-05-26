@@ -6,7 +6,12 @@
           <h3 v-if="!gameRunning">Player</h3>
           <h3 v-else>{{playerName}}</h3>
           <img class="player-sprite" src="./assets/adventurer/adventurer-idle-00.png">
-          <p class="health-bar">{{playerHealth}}</p>
+          <div class="health-bar" style="width=100%">
+            <div
+              class="health"
+              :style="{background: playerHealthStatus, width: playerHealth+'%'}"
+            >{{playerHealth}}</div>
+          </div>
         </div>
         <div class="col-lg-1">
           <h5>VS</h5>
@@ -14,7 +19,12 @@
         <div class="col-lg-5">
           <h3>Monster</h3>
           <img class="player-sprite" src="./assets/logo.png">
-          <p class="health-bar">{{monsterHealth}}</p>
+          <div class="health-bar">
+            <div
+              class="health"
+              :style="{background: monsterHealthStatus, width: monsterHealth+'%'}"
+            >{{monsterHealth}}</div>
+          </div>
         </div>
       </div>
       <div class="row">
@@ -100,7 +110,7 @@ export default {
       this.monsterHealth -= this.calcDamage(15, 35);
       this.actions.unshift({
         isPlayer: true,
-        text: "Player hits Monster for " + damage
+        text: "Player hits Monster with special attack for " + damage
       });
       this.checkWin();
       this.monsterTurn();
@@ -120,7 +130,11 @@ export default {
       this.checkWin();
     },
     runAway: function() {
-      alert("You ran away like a coward. The monster ate you anyway.");
+      this.actions.unshift({
+        text: "You ran away like a coward. The monster ate you anyway.",
+        isPlayer: true,
+        isStatus: true
+      });
       this.playerHealth = 0;
       this.checkWin();
     },
@@ -172,6 +186,34 @@ export default {
         this.playerHealth = 0;
         return false;
       } else return false;
+    }
+  },
+  computed: {
+    monsterHealthStatus() {
+      if (this.monsterHealth > 80) {
+        return "green";
+      } else if (this.monsterHealth > 60) {
+        return "greenyellow";
+      } else if (this.monsterHealth > 40) {
+        return "orange";
+      } else if (this.monsterHealh > 20) {
+        return "orangered";
+      } else {
+        return "red";
+      }
+    },
+    playerHealthStatus() {
+      if (this.playerHealth > 80) {
+        return "green";
+      } else if (this.playerHealth > 60) {
+        return "greenyellow";
+      } else if (this.playerHealth > 40) {
+        return "orange";
+      } else if (this.playerHealth > 20) {
+        return "orangered";
+      } else {
+        return "red";
+      }
     }
   }
 };

@@ -96,13 +96,27 @@ export default {
       this.checkWin();
     },
     specialAttack: function() {
-      this.playerHealth -= this.calcDamage(7, 20);
+      let damage = this.calcDamage(15, 35);
       this.monsterHealth -= this.calcDamage(15, 35);
+      this.actions.unshift({
+        isPlayer: true,
+        text: "Player hits Monster for " + damage
+      });
+      this.checkWin();
+      this.monsterTurn();
       this.checkWin();
     },
     heal: function() {
-      this.playerHealth -= this.calcDamage(7, 15);
-      this.playerHealth += this.calcDamage(10, 30);
+      let damage = this.calcDamage(10, 30);
+      this.playerHealth + damage > 100
+        ? (damage = 100 - this.playerHealth)
+        : (damage = damage);
+      this.playerHealth += damage;
+      this.actions.unshift({
+        isPlayer: true,
+        text: "Player heals for " + damage
+      });
+      this.monsterTurn();
       this.checkWin();
     },
     runAway: function() {

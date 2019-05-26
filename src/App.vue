@@ -45,7 +45,7 @@
       </div>
       <div class="row">
         <div id="action-log" class="col-lg-12 bg-dark text-light">
-          <p>All the damage logs go here</p>
+          <p v-for="action in actions">{{action.text}}</p>
         </div>
       </div>
       <div class="row">
@@ -79,13 +79,20 @@ export default {
       gameRunning: false,
       playerDeath: false,
       playerName: "",
-      turn: 0
+      turn: 0,
+      actions: []
     };
   },
   methods: {
     attack: function() {
-      this.playerHealth -= this.calcDamage(7, 20);
-      this.monsterHealth -= this.calcDamage(3, 10);
+      let damage = this.calcDamage(3, 10);
+      this.monsterHealth -= damage;
+      this.actions.unshift({
+        isPlayer: true,
+        text: "Player hits Monster for " + damage
+      });
+      this.checkWin();
+      this.monsterTurn();
       this.checkWin();
     },
     specialAttack: function() {
@@ -103,6 +110,15 @@ export default {
       this.playerHealth = 0;
       this.checkWin();
     },
+    monsterTurn: function() {
+      let damage = this.calcDamage(7, 20);
+      this.playerHealth -= damage;
+      this.actions.unshift({
+        isPlayer: false,
+        text: "Monster hits Player for " + damage
+      });
+      this.checkWin();
+    },
     calcDamage: function(min, max) {
       return Math.max(Math.floor(Math.random() * max), min);
     },
@@ -110,10 +126,15 @@ export default {
       this.gameRunning = true;
       this.playerHealth = 100;
       this.monsterHealth = 100;
+      this.actions = [];
     },
     checkWin: function() {
       if (this.monsterHealth <= 0 && this.playerHealth <= 0) {
-        alert("Double death!");
+        this.actions.unshift({
+          isPlayer: true,
+          isStatus: true,
+          text: "Double death! Play again?"
+        });
         this.monsterHealth = 0;
         this.playerHealth = 0;
         this.gameRunning = false;
@@ -121,10 +142,18 @@ export default {
       } else if (this.monsterHealth <= 0) {
         this.gameRunning = false;
         this.monsterHealth = 0;
-        alert("You are victorious!");
+        this.actions.unshift({
+          isPlayer: true,
+          isStatus: true,
+          text: "You are victorious! Enter your name to play again."
+        });
         return true;
       } else if (this.playerHealth <= 0) {
-        alert("GAME OVER! You died");
+        this.actions.unshift({
+          isPlayer: true,
+          isStatus: true,
+          text: "GAME OVER! You died. Enter your name to play again."
+        });
         this.gameRunning = false;
         this.playerHealth = 0;
         return false;
